@@ -67,9 +67,11 @@ def backup_projects(session, project_id):
     if os.path.isdir(tmp_old):
         shutil.rmtree(tmp_old)
 
+    new_repo = False
     # init the git repo if necessary
     if not os.path.isdir(repo_dir):
         repo = git.Repo.init(repo_dir)
+        new_repo = True
     else:
         repo = git.Repo(repo_dir)
 
@@ -116,7 +118,7 @@ def backup_projects(session, project_id):
     else:
         print('no change since last commit')
 
-    return repo_has_changed
+    return repo_has_changed and not new_repo
 
 
 def generate_diffs(project_id):
@@ -157,5 +159,5 @@ if __name__ == '__main__':
 
         for project_id  in PROJECTS:
             project_has_changed = backup_projects(session, project_id)
-            if project_has_changed or True:
+            if project_has_changedt:
                 generate_diffs(project_id)

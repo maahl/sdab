@@ -15,6 +15,7 @@ What it does in more details:
 * commit the changes
 * push them if possible
 * latexdiff the old and new version
+* email the latexdiff using the provided command
 
 To setup the script:
 
