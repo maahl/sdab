@@ -91,7 +91,7 @@ def backup_projects(session, project_id):
     # True if there have been changes since last commit
     repo_has_changed = repo.is_dirty() or repo.untracked_files
 
-    if repo_has_changed:
+    if repo_has_changed or new_repo:
         # download the corresponding pdf
         response = session.get(SHARELATEX_URL + 'project/' + project_id + '/output/output.pdf')
 
@@ -159,5 +159,5 @@ if __name__ == '__main__':
 
         for project_id  in PROJECTS:
             project_has_changed = backup_projects(session, project_id)
-            if project_has_changedt:
+            if project_has_changed:
                 generate_diffs(project_id)
